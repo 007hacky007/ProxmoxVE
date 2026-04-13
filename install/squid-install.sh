@@ -75,7 +75,7 @@ msg_ok "Configured Squid"
 
 msg_info "Generating Proxy Credentials"
 SQUID_USER="proxy"
-SQUID_PASS="$(tr -dc 'A-Za-z0-9' </dev/urandom | head -c16)"
+SQUID_PASS="$(dd if=/dev/urandom bs=32 count=1 status=none | base64 | tr -dc 'A-Za-z0-9' | cut -c1-16)"
 $STD htpasswd -cb /etc/squid/passwords "$SQUID_USER" "$SQUID_PASS"
 cat <<EOF >/root/squid.creds
 Proxy endpoint: $(hostname -I | awk '{print $1}'):3128

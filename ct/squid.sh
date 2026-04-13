@@ -45,8 +45,12 @@ start
 build_container
 description
 
-SQUID_USER=$(pct exec "$CTID" -- awk -F': ' '/^Username:/ {print $2}' /root/squid.creds 2>/dev/null | tr -d '\r')
-SQUID_PASS=$(pct exec "$CTID" -- awk -F': ' '/^Password:/ {print $2}' /root/squid.creds 2>/dev/null | tr -d '\r')
+SQUID_USER=""
+SQUID_PASS=""
+if pct exec "$CTID" -- test -f /root/squid.creds 2>/dev/null; then
+  SQUID_USER=$(pct exec "$CTID" -- awk -F': ' '/^Username:/ {print $2}' /root/squid.creds 2>/dev/null | tr -d '\r')
+  SQUID_PASS=$(pct exec "$CTID" -- awk -F': ' '/^Password:/ {print $2}' /root/squid.creds 2>/dev/null | tr -d '\r')
+fi
 
 msg_ok "Completed successfully!\n"
 echo -e "${CREATING}${GN}${APP} setup has been successfully initialized!${CL}"
