@@ -68,8 +68,6 @@ httpd_suppress_version_string on
 visible_hostname $(hostname)
 forwarded_for delete
 request_header_access X-Forwarded-For deny all
-via off
-dns_v4_first on
 EOF
 msg_ok "Configured Squid"
 
@@ -89,7 +87,7 @@ msg_ok "Username: ${SQUID_USER}"
 msg_ok "Password: ${SQUID_PASS}"
 
 msg_info "Validating Squid Configuration"
-squid -k parse
+$STD squid -k parse
 msg_ok "Validated Squid Configuration"
 
 msg_info "Starting Service"

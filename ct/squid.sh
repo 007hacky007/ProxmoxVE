@@ -31,7 +31,7 @@ function update_script() {
   $STD apt-get update
   $STD apt-get -y upgrade
   msg_info "Validating Squid Configuration"
-  squid -k parse
+  $STD squid -k parse
   msg_ok "Validated Squid Configuration"
   msg_info "Restarting Squid"
   systemctl restart squid
