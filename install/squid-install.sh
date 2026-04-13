@@ -90,7 +90,8 @@ $STD squid -k parse
 msg_ok "Validated Squid Configuration"
 
 msg_info "Starting Service"
-systemctl enable -q --now squid
+systemctl enable -q squid
+systemctl restart squid
 msg_ok "Started Service"
 
 motd_ssh
